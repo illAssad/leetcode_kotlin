@@ -26,10 +26,40 @@ class Solution {
         current?.next = prev
         return current
     }
+
+    fun reverseListRecursive(head: ListNode?) : ListNode? {
+        fun reverse(head: ListNode?, prev: ListNode? = null): ListNode? {
+            if (head?.next == null) {
+                head?.next = prev
+                return head
+            }
+
+            var next = head.next
+            head.next = prev
+            return reverse(next, head)
+        }
+        return reverse(head)
+    }
 }
 
 
 
 class ListNode(var `val`: Int) {
     var next: ListNode? = null
+}
+
+fun main() {
+    var head: ListNode? = null
+    for (i in 0..<5) {
+        var node = ListNode(i)
+        node.next = head
+        head = node
+    }
+    head = Solution().reverseListRecursive(head)
+    while (head != null) {
+        println(head.`val`)
+        head = head.next
+    }
+
+
 }
