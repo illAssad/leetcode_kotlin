@@ -1,5 +1,3 @@
-import java.util.LinkedList
-
 /**
  * Example:
  * var li = ListNode(5)
@@ -9,7 +7,7 @@ import java.util.LinkedList
  *     var next: ListNode? = null
  * }
  */
-class Solution {
+class Solution206 {
     fun reverseList(head: ListNode?): ListNode? {
         // reference current node -> this is needed when we move over.
         // init a variable (prev) init to null
@@ -55,7 +53,7 @@ fun main() {
         node.next = head
         head = node
     }
-    head = Solution().reverseListRecursive(head)
+    head = Solution206().reverseListRecursive(head)
     while (head != null) {
         println(head.`val`)
         head = head.next
