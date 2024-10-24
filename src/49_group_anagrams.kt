@@ -1,4 +1,4 @@
-class Solution {
+class Solution49 {
     fun groupAnagrams(strs: Array<String>): List<List<String>> {
 
         val resultMap =
