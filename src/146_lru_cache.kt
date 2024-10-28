@@ -1,3 +1,6 @@
+import java.util.*
+import kotlin.collections.HashMap
+
 class LRUCache(private val capacity: Int) {
     class CacheNode(
         var `val`: Int,
@@ -81,6 +84,67 @@ class LRUCache(private val capacity: Int) {
         } else {
             tail = tail?.prev
             tail?.next = null
+        }
+    }
+}
+// Approach 1 (Original): Grow towards tail, remove from head
+class LRUCache1(private val capacity: Int) {
+    private class Node(val key: Int, var value: Int)
+    private val deque = LinkedList<Node>()
+    private val map = HashMap<Int, Node>()
+
+    fun get(key: Int): Int {
+        val node = map[key] ?: return -1
+        deque.remove(node)
+        deque.addLast(node)  // Most recent at tail
+        return node.value
+    }
+
+    fun put(key: Int, value: Int) {
+        val existing = map[key]
+        if (existing != null) {
+            existing.value = value
+            deque.remove(existing)
+            deque.addLast(existing)  // Most recent at tail
+        } else {
+            if (map.size >= capacity) {
+                val lru = deque.removeFirst()  // Least recent at head
+                map.remove(lru.key)
+            }
+            val node = Node(key, value)
+            deque.addLast(node)  // Most recent at tail
+            map[key] = node
+        }
+    }
+}
+
+// Approach 2: Grow towards head, remove from tail
+class LRUCache2(private val capacity: Int) {
+    private class Node(val key: Int, var value: Int)
+    private val deque = LinkedList<Node>()
+    private val map = HashMap<Int, Node>()
+
+    fun get(key: Int): Int {
+        val node = map[key] ?: return -1
+        deque.remove(node)
+        deque.addFirst(node)  // Most recent at head
+        return node.value
+    }
+
+    fun put(key: Int, value: Int) {
+        val existing = map[key]
+        if (existing != null) {
+            existing.value = value
+            deque.remove(existing)
+            deque.addFirst(existing)  // Most recent at head
+        } else {
+            if (map.size >= capacity) {
+                val lru = deque.removeLast()  // Least recent at tail
+                map.remove(lru.key)
+            }
+            val node = Node(key, value)
+            deque.addFirst(node)  // Most recent at head
+            map[key] = node
         }
     }
 }
