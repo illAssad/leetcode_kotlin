@@ -5,7 +5,7 @@ class Solution200 {
     // 1 -> land
     // 0 -> water
     // return # of islands
-    val directions = arrayOf(
+    private val directions = arrayOf(
         intArrayOf(1, 0),
         intArrayOf(0, 1),
         intArrayOf(-1, 0),
