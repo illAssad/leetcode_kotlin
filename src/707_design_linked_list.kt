@@ -9,6 +9,17 @@ class MyLinkedList() {
         var next: ListNode? = null
     )
 
+    fun getNode(index: Int): ListNode? {
+        if (index !in 0..<size) return null
+
+        // Always traverse from head to avoid complexity
+        var current = head
+        for (i in 0..<index) {
+            current = current?.next
+        }
+        return current ?: null
+    }
+
     fun get(index: Int): Int {
         if (index !in 0..<size) return -1
 
@@ -105,8 +116,8 @@ class MyLinkedList() {
         size--
     }
 
-    fun print() {
-        var current = head
+    fun print(start: ListNode? = null) {
+        var current = start ?: head
         while (current != null) {
             print(current.`val`)
             current = current.next
